@@ -1,7 +1,7 @@
 import requests
 
-DEFAULT_BASE_URI = "http://api.brewerydb.com/v2"
-BASE_URI = ""
+DEFAULT_BASE_URL = "http://api.brewerydb.com/v2"
+BASE_URL = ""
 API_KEY = ""
 
 simple_endpoints = ["beers", "breweries", "categories", "events",
@@ -32,12 +32,12 @@ class BreweryDb:
     @staticmethod
     def _get(request, options):
         options.update({"key" : BreweryDb.API_KEY})
-        return requests.get(BreweryDb.BASE_URI + request, params=options).json()
+        return requests.get(BreweryDb.BASE_URL + request, params=options).json()
 
     @staticmethod
-    def configure(apikey, baseuri=DEFAULT_BASE_URI):
+    def configure(apikey, baseuri=DEFAULT_BASE_URL):
         BreweryDb.API_KEY = apikey
-        BreweryDb.BASE_URI = baseuri
+        BreweryDb.BASE_URL = baseurl
         for endpoint in simple_endpoints:
             fun = BreweryDb.__make_simple_endpoint_fun(endpoint)
             setattr(BreweryDb, endpoint.replace('/', '_'), fun)
